@@ -1,0 +1,42 @@
+version: '3.8' # Docker Compose फ़ाइल का वर्जन
+
+services:
+  # तुम्हारी कोर्स सर्विस
+  course-service:
+    build: . # बताता है कि इमेज वर्तमान डायरेक्टरी में Dockerfile से बनाई जानी चाहिए
+    container_name: course-service-app # कंटेनर का एक कस्टम नाम
+    ports:
+      - "8051:8051" # होस्ट पोर्ट 8051 को कंटेनर पोर्ट 8051 पर मैप करें
+    environment:
+      # डेटाबेस URL को अपडेट करें: 'db' MySQL सेवा का नाम है
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/course_service_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update # ddl-auto को environment variable के रूप में सेट करें
+      TZ: Asia/Kolkata # टाइमजोन सेट करें
+
+    depends_on:
+      - db # सुनिश्चित करें कि MySQL पहले शुरू हो
+    networks:
+      - my-app-network # सभी सेवाओं के लिए एक कॉमन नेटवर्क
+
+  # MySQL डेटाबेस सर्विस
+  db:
+    image: mysql:8.0 # MySQL 8.0 इमेज का उपयोग करें
+    container_name: course-service-db # कंटेनर का नाम
+    environment:
+      MYSQL_ROOT_PASSWORD: root # रूट पासवर्ड
+      MYSQL_DATABASE: course_service_db # डेटाबेस का नाम
+    volumes:
+      - db_data:/var/lib/mysql # डेटा को स्थायी रूप से स्टोर करने के लिए वॉल्यूम माउंट करें
+    networks:
+      - my-app-network
+
+# वॉल्यूम परिभाषा
+volumes:
+  db_data: # MySQL डेटा के लिए वॉल्यूम
+
+# नेटवर्क परिभाषा
+networks:
+  my-app-network:
+    driver: bridge # एक ब्रिज नेटवर्क का उपयोग करें
