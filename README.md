@@ -69,12 +69,12 @@ Here's the modified README section for the **EduEnrollSystem**, including the up
 ## 📬 Sample API Usage (via Postman)
 
 ### ✅ Enroll a Student
-- **POST** `http://localhost:7000/api/enrollment/enroll`
+- **POST** `http://localhost:8053/api/enrollment`
 - **Body:**
   ```json
   {
     "studentId": 1,
-    "courseId": 4,
+    "courseId": 1,
     "enrollmentDate": "2025-07-21"
   }
   ```
@@ -109,10 +109,9 @@ Here's the modified README section for the **EduEnrollSystem**, including the up
 - **Body:**
   ```json
   {
-    "studentId": 1,
     "studentName": "Mihir Mehar",
     "email": "mihirmehar2769@gmail.com",
-    "phone": "8959428793"
+    "phone": "8959428463"
   }
   ```
 
@@ -138,7 +137,7 @@ Here's the modified README section for the **EduEnrollSystem**, including the up
     "student": {
       "studentId": 4,
       "studentName": "Priya Singh",
-      "email": "priya.singh@example.com",
+      "email": "priya.singh@gmail.com",
       "phone": "9876543210"
     },
     "course": {
