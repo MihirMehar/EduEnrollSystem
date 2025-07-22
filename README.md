@@ -214,7 +214,7 @@ Here's the modified README section for the **EduEnrollSystem**, including the up
 
 👨‍💻 **Mihir Mehar**  
 Backend Developer | Java | Spring Boot | Microservices Enthusiast  
-[LinkedIn](https://www.linkedin.com/in/mihirmehar) | [GitHub](https://github.com/MihirMehar)
+[LinkedIn](https://www.linkedin.com/in/mihir-mehar-27b4a9210) | [GitHub](https://github.com/MihirMehar)
 
 ---
 
