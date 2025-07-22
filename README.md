@@ -1,5 +1,3 @@
-Here's a more visually appealing and organized version of your README for the **EduEnrollSystem**. I've added formatting enhancements, icons, and sections to improve readability and engagement.
-
 ---
 
 # 🎓 EduEnrollSystem
@@ -15,8 +13,8 @@ A **Microservices-based backend system** designed to manage **student enrollment
 | **`student-service`** | 8052  | Manages student details (CRUD operations).                                  |
 | **`course-service`**  | 8051  | Manages course details (CRUD operations).                                   |
 | **`enrollment-service`** | 8053 | Handles student-course enrollments. Integrates with student and course services using **FeignClient**. |
-| **`notification-service`** | -   | Listens to Kafka topic and sends success messages.                         |
-| **`report-service`**  | -     | Generates daily enrollment reports using **Spring Batch**.                 |
+| **`notification-service`** | 8083   | Listens to Kafka topic and sends success messages.                         |
+| **`report-service`**  | 8084   | Generates daily enrollment reports using **Spring Batch**.                 |
 | **`apigateway`**      | 7000  | Unified entry point for all services using Spring Cloud Gateway.           |
 | **`config-server`**   | 8888  | Centralized externalized configuration for all microservices.              |
 | **`eureka-service`**  | 8761  | Service discovery using Netflix Eureka.                                     |
@@ -33,6 +31,10 @@ A **Microservices-based backend system** designed to manage **student enrollment
 - **Docker & Docker Compose**
 - **Prometheus (9090)** + **Grafana (3000)** + **Zipkin (9411)**
 - **Lombok, Feign Client**
+
+---
+
+Here's the modified README section for the **EduEnrollSystem**, including the updated API usage examples for the **course service**, **student service**, and **enrollment service**. I've organized the information for clarity and consistency.
 
 ---
 
@@ -77,27 +79,126 @@ A **Microservices-based backend system** designed to manage **student enrollment
   }
   ```
 
-### 📘 Get Enrollment Details by ID
-- **GET** `http://localhost:7000/api/enrollment/details/1`
+### ✅ Create a Course
+- **POST** `http://localhost:8051/api/courses`
+- **Body:**
+  ```json
+  {
+    "courseName": "React Basics",
+    "courseDescription": "Learn the fundamentals of React.js",
+    "category": "Frontend",
+    "durationInHours": 20
+  }
+  ```
+
+### 📘 Get Course Details by ID
+- **GET** `http://localhost:8051/api/courses/1`
 - **Response:**
   ```json
   {
-    "enrollmentId": 1,
-    "enrollmentDate": "2025-07-19",
+    "courseId": 1,
+    "courseName": "Spring Boot",
+    "courseDescription": "Learn Microservices",
+    "category": "Backend",
+    "durationInHours": 30
+  }
+  ```
+
+### ✅ Create a Student
+- **POST** `http://localhost:8052/api/students`
+- **Body:**
+  ```json
+  {
+    "studentId": 1,
+    "studentName": "Mihir Mehar",
+    "email": "mihirmehar2769@gmail.com",
+    "phone": "8959428793"
+  }
+  ```
+
+### 📘 Get Student Details by ID
+- **GET** `http://localhost:8052/api/students/1`
+- **Response:**
+  ```json
+  {
+    "studentId": 1,
+    "studentName": "Mihir Mehar",
+    "email": "mihirmehar2769@gmail.com",
+    "phone": "8959428793"
+  }
+  ```
+
+### 📘 Get Enrollment Details by ID
+- **GET** `http://localhost:7000/api/enrollments/details/5`
+- **Response:**
+  ```json
+  {
+    "enrollmentId": 5,
+    "enrollmentDate": "2025-07-21",
     "student": {
-      "studentId": 1,
-      "studentName": "Mihir Mehar",
-      "email": "mihirmehar2769@gmail.com",
-      "phone": "8959428793"
+      "studentId": 4,
+      "studentName": "Priya Singh",
+      "email": "priya.singh@example.com",
+      "phone": "9876543210"
     },
     "course": {
-      "courseId": 1,
-      "courseName": "Spring Boot",
-      "courseDescription": "Learn Microservices",
-      "category": "Backend",
-      "durationInHours": 30
+      "courseId": 5,
+      "courseName": "Responsive Web Design",
+      "courseDescription": "Create mobile-friendly websites with responsive design techniques",
+      "category": "Frontend",
+      "durationInHours": 18
     }
   }
+  ```
+
+### 📘 Search Enrollments by Course ID
+- **GET** `http://localhost:8053/api/enrollments/courses/5`
+- **Response:**
+  ```json
+  [
+    {
+      "enrollmentId": 5,
+      "enrollmentDate": "2025-07-21",
+      "student": {
+        "studentId": 4,
+        "studentName": "Priya Singh",
+        "email": "priya.singh@example.com",
+        "phone": "9876543210"
+      },
+      "course": {
+        "courseId": 5,
+        "courseName": "Responsive Web Design",
+        "courseDescription": "Create mobile-friendly websites with responsive design techniques",
+        "category": "Frontend",
+        "durationInHours": 18
+      }
+    }
+  ]
+  ```
+
+### 📘 Search Enrollments by Student ID
+- **GET** `http://localhost:8053/api/enrollments/student/2`
+- **Response:**
+  ```json
+  [
+    {
+      "enrollmentId": 2,
+      "enrollmentDate": "2025-07-19",
+      "student": {
+        "studentId": 2,
+        "studentName": "Riya Sharma",
+        "email": "riya.sharma@example.com",
+        "phone": "9876543210"
+      },
+      "course": {
+        "courseId": 2,
+        "courseName": "Flask for Beginners",
+        "courseDescription": "Learn to build web applications with Flask",
+        "category": "Backend",
+        "durationInHours": 20
+      }
+    }
+  ]
   ```
 
 ---
